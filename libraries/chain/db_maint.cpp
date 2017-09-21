@@ -224,7 +224,12 @@ void database::update_active_witnesses()
       {
          vote_counter vc;
          for( const witness_object& wit : wits )
-            vc.add( wit.witness_account, _vote_tally_buffer[wit.vote_id] );
+         {
+             // b4el
+             //ilog("Account {a} has {b} transactions", ("a", wit.witness_account)("b", wit.witness_account.type.statistics.type.total_ops));
+             ilog("Account {a} has {b} transactions", ("a", wit.witness_account)("b", wit.total_votes));
+             vc.add( wit.witness_account, _vote_tally_buffer[wit.vote_id] );
+         }
          vc.finish( a.active );
       }
    } );
